@@ -37,33 +37,33 @@ function getWeather(location) {
 
     });
 
-
     function currentWeather(response) {
-        let currentTemp = $("<p>").text("Current temperature: " + response.list[0].main.temp);
-        let currentHumidity = $("<p>").text("Current humidity: " + response.list[0].main.humidity);
-        let currentWindSpeed = $("<p>").text("Current wind speed: " + response.list[0].wind.speed);
+
+        //TODO Convert Kelvin to Celcius
+        // Moment JS for current time
+        let currentTemp = $("<p>").text("Current temperature: " + convertKelvinToCelcius(response.list[0].main.temp));
+        let currentHumidity = $("<p>").text("Current humidity: " + response.list[0].main.humidity + "%");
+        let currentWindSpeed = $("<p>").text("Current wind speed: " + response.list[0].wind.speed + "knots");
 
         $("#today").append(currentTemp);
         $("#today").append(currentHumidity);
         $("#today").append(currentWindSpeed);
     }
 
-    function fiveDayForecast(response)
- {
-    var day1 = { // an Array of objects? Or an object array?
-        time:
-        temp:
-        humidity:
-        windspeed:
-    }
+    function convertKelvinToCelcius(kelvin) {
+        celcius = kelvin - 273.15;
+        return celcius.toPrecision(3) + "c";
     }
 
- }         // Function for current weather
-         // Function for 5 day forecast
-         // Validation - Valid city name?
+    
 
 
 }
+
+          // Function for current weather
+         // Function for 5 day forecast
+         // Validation - Valid city name?
+
 
 
 
