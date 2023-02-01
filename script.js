@@ -34,29 +34,41 @@ function getWeather(location) {
         console.log(response);
 
         currentWeather(response);
+        fiveDayForecast(response);
 
     });
 
     function currentWeather(response) {
 
-        //TODO Convert Kelvin to Celcius
-        let city = $("<h2>").text(response.city.name);
+        let city = $("<h2>").text(response.city.name).css("font-weight", "bold");
         let todayDate = $("<h3>").text(response.list[0].dt_txt).css("font-weight", "bold");
         let currentTemp = $("<p>").text("Current temperature: " + convertKelvinToCelcius(response.list[0].main.temp));
         let currentHumidity = $("<p>").text("Current humidity: " + response.list[0].main.humidity + "%");
-        let currentWindSpeed = $("<p>").text("Current wind speed: " + response.list[0].wind.speed + "knots");
+        let currentWindSpeed = $("<p>").text("Current wind speed: " + response.list[0].wind.speed + "mph");
+        $("#today").css("display", "block");
         
-        $("#today").append(city);
-        $("#today").append(todayDate);
-        $("#today").append(currentTemp);
-        $("#today").append(currentHumidity);
-        $("#today").append(currentWindSpeed);
+        $("#today").append(city, todayDate, currentTemp, currentHumidity, currentWindSpeed);
 
     }
 
+    function fiveDayForecast(response) {
+
+    for (let i = 8; i < response.list.length; i += 8) {
+
+        /*let city = $("<h3>").text(response.city.name).css("font-weight", "bold");*/
+        let futureDate = $("<h4>").text(response.list[i].dt_txt).css("font-weight", "bold");
+        let projectedTemp = $("<p>").text("Projected temperature: " + convertKelvinToCelcius(response.list[i].main.temp));
+        let projectedHumidity = $("<p>").text("Projected humidity: " + response.list[i].main.humidity + "%");
+        let projectedWindSpeed = $("<p>").text("Projected wind speed: " + response.list[i].wind.speed + "mph");
+        $("#forecast").css("display", "block");
+
+        $("#forecast").append(futureDate, projectedTemp, projectedHumidity, projectedWindSpeed);
+    }
+}
+
     function convertKelvinToCelcius(kelvin) {
         celcius = kelvin - 273.15;
-        return celcius.toPrecision(3) + "c";
+        return celcius.toPrecision(2) + "c";
     }
 
     
@@ -64,10 +76,14 @@ function getWeather(location) {
 
 }
 
-          // Function for current weather
-         // Function for 5 day forecast
-         // Validation - Valid city name?
 
+
+
+// TODO - Function for 5 day forecast
+// TODO - Validation for City Names
+// TODO - Saving to Local Storage
+// TODO - FontAwesome Icon Logic
+// 
 
 
 

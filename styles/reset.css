@@ -1,0 +1,18 @@
+#today {
+    display: none;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 2%;
+}
+
+#forecast {
+    display: none;
+    padding: 2%;
+}
+
+p {
+    display: inline;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2%;
+}
