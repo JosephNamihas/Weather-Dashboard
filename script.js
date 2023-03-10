@@ -6,7 +6,7 @@ function getCoordinates(event) {
     event.preventDefault();
 
     var city = $("#search-input").val().trim();
-    var geoURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city +"&limit=5&appid=835ac51cd6706255ca416c658e012750"; 
+    var geoURL = "https://api.openweathermap.org/geo/1.0/direct?q="+ city +"&limit=5&appid=835ac51cd6706255ca416c658e012750"; 
 
     $.ajax( {
         url: geoURL,
