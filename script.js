@@ -35,34 +35,38 @@ function getWeather(location) {
 
         currentWeather(response);
         fiveDayForecast(response);
+        createButton(response);
 
     });
 
+    var cityHistory = [];
+
     function currentWeather(response) {
 
-        let city = $("<h2>").text(response.city.name).css("font-weight", "bold");
+        let city = $("<h2>").text(response.name);
         let todayDate = $("<h3>").text(response.list[0].dt_txt).css("font-weight", "bold");
-        let currentTemp = $(".card-title").text("Current temperature: " + convertKelvinToCelcius(response.list[0].main.temp));
+        let currentTemp = $("<p>").text("Current temperature: " + convertKelvinToCelcius(response.list[0].main.temp));
         let currentHumidity = $("<p>").text("Current humidity: " + response.list[0].main.humidity + "%");
         let currentWindSpeed = $("<p>").text("Current wind speed: " + response.list[0].wind.speed + "mph");
         $("#today").css("display", "block");
+
+        let currentWeatherArr = [];
+        currentWeatherArr.push(city, todayDate, currentTemp, currentHumidity, currentWindSpeed);
         
-        $("#today").append(city, todayDate, currentTemp, currentHumidity, currentWindSpeed);
+        $("#today").append(currentWeatherArr);
 
     }
 
     function fiveDayForecast(response) {
 
-        for (let i = 7; i < response.list.length; i += 7) {
+        for (let i = 7; i < response.list.length; i += 7) { // Bit of a makeshift way to do this
             let futureDate = $("<h4>").text(response.list[i].dt_txt).css("font-weight", "bold");
             let futureTemp = $("<p>").text("Current temperature: " + convertKelvinToCelcius(response.list[i].main.temp));
             let futureHumidity = $("<p>").text("Current humidity: " + response.list[i].main.humidity + "%");
             let futureWindSpeed = $("<p>").text("Current wind speed: " + response.list[i].wind.speed + "mph");
             $("#forecast").css("display", "block");
             $("#forecast").append(futureDate, futureTemp, futureHumidity, futureWindSpeed);
-        }
-
-        //
+        }        
 }
 
     function convertKelvinToCelcius(kelvin) {
@@ -70,27 +74,26 @@ function getWeather(location) {
         return celcius.toPrecision(2) + "c";
     }
 
-    function createButton() {
-        let cityButton = $("button".text(response.city.name));
-        $("#search-form").append(cityButton);
+    function createButton(response) { // Incomplete
+        if (cityHistory.includes(response.city.name)) {
+            return;
+        }
+            else {
+                localStorage.setItem("City", JSON.stringify(cityHistory))
+                historyButton = $("#history").append("<button>" + response.city.name + "</button>")
+                cityHistory.push(historyButton);
+            }
+        }
+            
     }
 
-    
 
-
-}
-
-
-
-
-// TODO - Function for 5 day forecast
 // TODO - Validation for City Names
 // TODO - Saving to Local Storage
 // TODO - FontAwesome Icon Logic
 
-
-
-
 // Event listeners
   $("#search-form").on("submit", getCoordinates);
-  $("#search-form").on("submit", createButton); // Set Local Storage
+
+
+
