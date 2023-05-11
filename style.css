@@ -1,9 +1,7 @@
 .forecast-container {
-    border: 2px solid black;
-    height: 30vh;
+        height: 30vh;
 }
 
-.col1 .col2 .col3 .col4 .col5 {
-    border: 2px solid black;
+.footer-today {
+    margin-bottom: 10%;
 }
-

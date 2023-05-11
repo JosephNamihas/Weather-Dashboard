@@ -4,6 +4,8 @@ var searchButton = document.querySelector("#search-button"); // The button
 var searchBox = document.querySelector("#search-box"); // The search bar
 var todayWeather = document.querySelector("#today-weather"); // Today's weather
 
+var cityNameFooter = document.querySelector("#city-name-footer") // Displays City name in Footer
+
 
 const getCoordinates = (event) => {
     event.preventDefault();
@@ -53,7 +55,9 @@ const displayWeather = (response) => {
     todaysWeatherArr = [city, todayDate, currentTemp, currentHumidity, currentWindSpeed];
     
     // Remove element in jQuery
-    
+
+    $("#city-name-footer").text(response.city.name);
+
     $("#today-weather").append(todaysWeatherArr);
 };
 
