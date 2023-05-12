@@ -21,6 +21,7 @@
                 <li>Temperature</li>
                 <li>Humidity</li>
                 <li>Wind Speed</li>
+                <li>Chance of Rain</li>
           </ul>
         </div>
       </div>
@@ -33,18 +34,18 @@
       </div>
     
       <!-- Large Box showing Todays Weather-->
-      <div id="today-weather"></div>
 
       <div class="card text-center">
-        <div class="card-header">
+        <div class="card-header" id="today-weather">
           Today's Weather
         </div>
         <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <h5 class="card-title today-city"></h5>
+          <ul id="today-list">
+          </ul>
         </div>
-        <div class="card-footer text-muted footer-today" id="city-name-footer">
-         City Name
+        <div class="card-footer text-muted footer-today" id="forecast-label">
+         Next 5 Days
         </div>
       </div>
 

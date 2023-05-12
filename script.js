@@ -12,7 +12,6 @@ const getCoordinates = (event) => {
 
     var city = searchBox.value; // Search Button Input
     var geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`; 
-    var todaysWeatherArr = [];
 
     $.ajax( {
         url: geoURL,
@@ -46,19 +45,18 @@ const getWeather = (location) => {
 }
 
 const displayWeather = (response) => {
-    let city = $("<h2>").text(response.city.name);
+    // let city = $("<h2>").text(response.city.name);
+    // let cityFooter = $("<li>").text(response.list[0].main.temp);
     let todayDate = $("<h3>").text(response.list[0].dt_txt).css("font-weight", "bold");
-    let currentTemp = $("<p>").text(`Current temperature: ${convertTemp(response.list[0].main.temp)}c`);
-    let currentHumidity = $("<p>").text(`Current humidity: ${response.list[0].main.humidity}"%"`);
-    let currentWindSpeed = $("<p>").text(`Current wind speed: ${response.list[0].wind.speed}mph`);
-
-    todaysWeatherArr = [city, todayDate, currentTemp, currentHumidity, currentWindSpeed];
+    let currentTemp = $("<li>").text(`Current temperature: ${convertTemp(response.list[0].main.temp)}c`);
+    let currentHumidity = $("<li>").text(`Current humidity: ${response.list[0].main.humidity}%`);
+    let currentWindSpeed = $("<li>").text(`Current wind speed: ${response.list[0].wind.speed}mph`);
+    let chanceOfRain = $("<li>").text('Chance of Rain: ')
     
     // Remove element in jQuery
-
-    $("#city-name-footer").text(response.city.name);
-
-    $("#today-weather").append(todaysWeatherArr);
+    $("#today-weather").text(`${response.city.name} - ${response.list[0].dt_txt}`);
+    // $("#today-city").text(response.city.name);
+    $("#today-list").append(currentTemp, currentHumidity, currentWindSpeed);
 };
 
 searchButton.addEventListener("click", getCoordinates);
@@ -66,6 +64,9 @@ searchButton.addEventListener("click", getCoordinates);
 const convertTemp = (weather) => {
     return (weather - 273.15).toFixed(2);
 }
+
+// Logos
+
 
 
 
